@@ -2,18 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const Post = require('./models/post')
 const mongoose = require("mongoose");
-const { createShorthandPropertyAssignment } = require("typescript");
 
 const app = express();
 
 mongoose.connect("mongodb+srv://Leandro:AimoEOtrVggGMssQ@cluster0.dr3klpv.mongodb.net/node-angular?retryWrites=true&w=majority")
-.then(() => {
-  console.log("Connected to database!");
-})
-.catch(() => {
-  console.log('Connections failed!');
-})
-
+  .then(() => {
+    console.log("Connected to database!");
+  })
+  .catch(() => {
+    console.log('Connections failed!');
+  })
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -54,7 +52,7 @@ app.get("/api/posts", (req, res, next) => {
 });
 
 app.delete("/api/posts/:id", (req, res, next) => {
-  Post.deleteOne({_id: req.params.id}).then(result =>{
+  Post.deleteOne({ _id: req.params.id }).then(result => {
     console.log(result)
     res.status(200).json({ message: "Post deleted" })
   })
