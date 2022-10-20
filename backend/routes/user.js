@@ -4,26 +4,25 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
 
-
 const router = express.Router();
 
 router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
       email: req.body.email,
-      password: hash,
+      password: hash
     });
     user
       .save()
-      .then((result) => {
+      .then(result => {
         res.status(201).json({
           message: "User created!",
-          result: result,
+          result: result
         });
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(500).json({
-          error: err,
+          error: err
         });
       });
   });
@@ -35,16 +34,16 @@ router.post("/login", (req, res, next) => {
     .then(user => {
       if (!user) {
         return res.status(401).json({
-          messaged: "Auth failed",
+          message: "Auth failed"
         });
       }
-      fetchedUser = user
+      fetchedUser = user;
       return bcrypt.compare(req.body.password, user.password);
     })
-    .then((result) => {
+    .then(result => {
       if (!result) {
         return res.status(401).json({
-          messaged: "Auth failed",
+          message: "Auth failed"
         });
       }
       const token = jwt.sign(
@@ -53,13 +52,15 @@ router.post("/login", (req, res, next) => {
         { expiresIn: "1h" }
       );
       res.status(200).json({
-        token: token
-      })
+        token: token,
+        expiresIn: 3600
+      });
     })
-    .catch((err) => {
+    .catch(err => {
       return res.status(401).json({
-        messaged: "Auth failed",
+        message: "Auth failed"
       });
     });
 });
+
 module.exports = router;
