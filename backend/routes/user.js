@@ -3,8 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
-const user = require("../models/user");
-const { collapseTextChangeRangesAcrossMultipleVersions } = require("typescript");
+
 
 const router = express.Router();
 
