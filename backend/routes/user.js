@@ -9,7 +9,7 @@ const { collapseTextChangeRangesAcrossMultipleVersions } = require("typescript")
 const router = express.Router();
 
 router.post("/signup", (req, res, next) => {
-  bcrypt.hash(req.body.password, 10).then((hash) => {
+  bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
       email: req.body.email,
       password: hash,
@@ -50,7 +50,7 @@ router.post("/login", (req, res, next) => {
       }
       const token = jwt.sign(
         { email: fetchedUser.email, userId: fetchedUser._id },
-        "secrete_this_should_be_longer",
+        "secret_this_should_be_longer",
         { expiresIn: "1h" }
       );
       res.status(200).json({
