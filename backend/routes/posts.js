@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require("multer");
 
 const Post = require("../models/post");
-const checkAuth = require("../midlleware/check-auth");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
@@ -81,7 +81,7 @@ router.put(
     });
     Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
       .then(result => {
-        if (result.modifiedCount > 0) {
+        if (result.nModified > 0) {
           res.status(200).json({ message: "Update successful!" });
         } else {
           res.status(401).json({ message: "Not authorized!" });
