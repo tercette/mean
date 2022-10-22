@@ -8,8 +8,7 @@ const routes: Routes = [
   { path: "", component: PostListComponent },
   { path: "create", component: PostCreateComponent, canActivate: [AuthGuard] },
   { path: "edit/:postId", component: PostCreateComponent, canActivate: [AuthGuard] },
-  { path: "auth", loadChildren:() => import("./auth/auth.module").then(m => m.AuthModule)},
-
+  { path: "auth", loadChildren: () => import("./auth/auth.module").then(m => m.AuthModule) },
 ];
 
 @NgModule({
@@ -17,4 +16,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
